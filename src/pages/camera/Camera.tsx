@@ -11,7 +11,7 @@ export const Camera = () => {
 
   const componentRef = useRef(null);
   const webcamRef = useRef<Webcam>(null);
-  const photoUrlsRef = useRef<any[]>(Array(8).fill(""));
+  const photoUrlsRef = useRef<any[]>(Array(6).fill(""));
 
   const [countdown, setCountdown] = useState<number>(0);
   const [pictureCount, setPictureCount] = useState<number>(0);
@@ -20,8 +20,8 @@ export const Camera = () => {
 
   let countdownInterval: string | number | NodeJS.Timer | undefined;
   const videoConstraints = {
-    width: 137,
-    height: 162,
+    width: 880,   // tăng chiều rộng
+    height: 520,   // tăng chiều cao
     facingMode: "user",
   };
 
@@ -32,7 +32,7 @@ export const Camera = () => {
       }
     };
     captureComponent();
-    if (pictureCount === 8) {
+    if (pictureCount === 6) {
       clearInterval(countdownInterval);
       setTriggerCountDown(false);
       setCountdown(0);
@@ -65,7 +65,7 @@ export const Camera = () => {
 
   const capturePhoto = () => {
     setCountdown(3);
-    if (pictureCount < 8) {
+    if (pictureCount < 6) {
       const image = webcamRef.current?.getScreenshot();
       if (image !== null) {
         setPictureCount((prevCaptureCount) => prevCaptureCount + 1);
@@ -95,7 +95,8 @@ export const Camera = () => {
           <Webcam
             mirrored={true}
             audio={false}
-            width={440}
+            width={880}
+            height={520}  // thêm chiều cao để khung đúng tỉ lệ ngang
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             videoConstraints={videoConstraints}

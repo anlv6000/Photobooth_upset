@@ -14,7 +14,7 @@ const CopiesSelection = () => {
   };
 
   const navigateToNextPage = () => {
-    navigate("/camera");
+    navigate("/layout");
   };
 
   return (

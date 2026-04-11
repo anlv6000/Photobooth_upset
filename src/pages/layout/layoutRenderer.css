@@ -1,0 +1,141 @@
+/* Polaroid khung chung */
+.polaroid {
+  width: 100%;   /* cố định khung, không tràn màn hình */
+  height: 90%;
+  margin: 0 auto;
+  background: black;
+  border: 5px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Polaroid chung */
+.polaroid {
+  margin: 0 auto;
+  background: black;
+  border: 5px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Polaroid 1 ảnh */
+.polaroid-1 {
+  width: 100%; 
+  height: 100%;
+}
+
+/* Polaroid 2+1 */
+.polaroid-2plus1 {
+  width: 100%;
+  height: 100%;
+}
+
+/* Polaroid 3 strip */
+.polaroid-3strip {
+  width: 100%; 
+  height: 100%;
+}
+
+/* Polaroid 4 strip */
+.polaroid-4strip {
+  width: 100%; 
+  height: 100%;
+}
+
+/* Polaroid 4 square */
+.polaroid-4square {
+  width: 100%; 
+  height: 100%;
+}
+
+/* Layout 1 ảnh */
+.layout-1 img {
+  width: 100%;
+  height: 260px;   /* cao hơn để ảnh rõ */
+  object-fit: cover;
+}
+
+/* Layout 2+1 */
+.layout-2plus1 .top-row {
+  display: flex;
+  gap: 10px;        /* thêm khoảng cách */
+}
+.layout-2plus1 .bottom-row {
+  margin-top: 13px;
+}
+.layout-2plus1 img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* Layout 3 strip */
+.layout-3strip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.layout-3strip img {
+  width: 100%;
+  height: 90px;    /* dài hơn để ảnh rõ */
+  object-fit: cover;
+}
+
+/* Layout 4 strip */
+.layout-4strip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.layout-4strip img {
+  width: 100%;
+  height: 80px;    /* dài hơn một chút */
+  object-fit: cover;
+}
+
+/* Layout 4 square */
+.layout-4square {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.layout-4square img:nth-child(1) {
+  transform: translateY(-5px); /* ảnh 1 hơi lên */
+}
+
+.layout-4square img:nth-child(2) {
+  transform: translateY(5px);  /* ảnh 2 hơi xuống */
+}
+
+.layout-4square img:nth-child(3) {
+  transform: translateY(-5px);  /* ảnh 3 hơi xuống */
+}
+
+.layout-4square img:nth-child(4) {
+  transform: translateY(5px); /* ảnh 4 hơi lên */
+}
+
+.layout-4square img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* Frame overlay */
+.frame-overlay {
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+.polaroid-text {
+  color: white;
+  font-family: 'Michroma', sans-serif;
+  font-size: 10px;
+  text-align: center;
+}
+

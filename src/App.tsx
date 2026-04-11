@@ -5,6 +5,9 @@ import Camera from "./pages/camera/Camera";
 import WaitPrompt from "./pages/prompt/waitPrompt";
 import PhotoSelection from "./pages/photoSelection/photoSelection";
 import CopiesSelection from "./pages/copiesSelection/copiesSelection";
+import LayoutSelection from "./pages/layout/LayoutSelection";
+import ThemeSelection from "./pages/layout/ThemeSelection";
+import Editor from "./pages/layout/Editor";
 
 import { CandidProvider } from "./context/storeContext";
 
@@ -16,8 +19,11 @@ const App = () => {
           <Route path="/" element={<Start />} />
           <Route path="/otp" element={<Otp />} />
           <Route path="/copies" element={<CopiesSelection />} />
+          <Route path="/layout" element={<LayoutSelection />} />
+          <Route path="/theme" element={<ThemeSelection />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/polaroid" element={<PhotoSelection />} />
+          <Route path="/editor" element={<Editor />} />
           <Route path="/wait-screen" element={<WaitPrompt />} />
         </Routes>
       </Router>

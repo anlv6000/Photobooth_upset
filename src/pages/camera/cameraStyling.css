@@ -7,12 +7,18 @@
 }
 
 .camera-screen {
-  position: relative;
-  width: 440;
-  height: 440;
-}.camera {
-  border-radius: 30px;
-  z-index: 0;
+  width: 100%;        /* chiếm toàn bộ chiều ngang */
+  max-width: 1280px;  /* giới hạn tối đa */
+  height: auto;       /* tự co theo tỷ lệ */
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.camera {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }.camera-btn-placement {
   margin-top: -7%;
 }

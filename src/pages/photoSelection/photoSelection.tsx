@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import CircularBtn from "../../components/circularBtn";
 import CandidHeading from "../../components/candidHeader";
-import CandidPolaroid from "../../components/candidPolaroid";
 import "./polaroidStyling.css";
 import { useCandidContext } from "../../context/storeContext";
+import LayoutRenderer from './../layout/LayoutRenderer';
 
 const PhotoSelection = () => {
   const location = useLocation();
@@ -15,28 +15,26 @@ const PhotoSelection = () => {
   const componentRef = useRef(null);
   const photos = location.state?.images;
   const [url, setUrl] = useState<string>("");
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [photoUrls, setPhotoUrls] = useState<string[]>([...photos]);
-  const [selectedPhotosIndexes, setSelectedPhotosIndexes] = useState<number[]>([
-    0, 1, 2, 3,
-  ]);
-  const { numberOfCopies } = useCandidContext();
+
+  const layoutPhotoCount: Record<string, number> = {
+    "1": 1,
+    "2plus1": 3,
+    "3strip": 3,
+    "4strip": 4,
+    "4square": 4,
+  };
+  const { layoutType, orientation, theme } = useCandidContext();
+  const requiredCount = layoutPhotoCount[layoutType] || 4;
+
+  // danh sách index ảnh đã chọn
+  const [selectedPhotosIndexes, setSelectedPhotosIndexes] = useState<number[]>([]);
+  // danh sách url ảnh đã chọn
+  const [photoUrls, setPhotoUrls] = useState<string[]>(Array(requiredCount).fill(""));
 
   useEffect(() => {
     captureComponent();
   }, [photoUrls]);
 
-  const handlePictureChange = (image: string, imageIndex: number) => {
-    const temp_selectedPhotos = [...photoUrls];
-    const temp_selectedPhotosIndexes = [...selectedPhotosIndexes];
-    temp_selectedPhotos[selectedIndex] = image;
-    temp_selectedPhotosIndexes[selectedIndex] = imageIndex;
-    if (selectedIndex === 3) {
-      setSelectedIndex(0);
-    } else setSelectedIndex((prevCount) => (prevCount += 1));
-    setPhotoUrls(temp_selectedPhotos);
-    setSelectedPhotosIndexes(temp_selectedPhotosIndexes);
-  };
   const captureComponent = async () => {
     if (componentRef.current !== null) {
       const canvas = await html2canvas(componentRef.current);
@@ -44,63 +42,62 @@ const PhotoSelection = () => {
       setUrl(image);
     }
   };
-  const printClick = async () => {
+
+  const editClick = async () => {
     await captureComponent();
-    navigate("/wait-screen");
+    navigate("/editor", { state: { collageUrl: url, layoutType, orientation, theme } });
+  };
+
+  const handlePictureToggle = (image: string, imageIndex: number) => {
+    if (selectedPhotosIndexes.includes(imageIndex)) {
+      // bỏ chọn
+      const newIndexes = selectedPhotosIndexes.filter(i => i !== imageIndex);
+      setSelectedPhotosIndexes(newIndexes);
+
+      const newUrls = [...photoUrls];
+      const pos = newUrls.findIndex(u => u === image);
+      if (pos !== -1) newUrls[pos] = "";
+      setPhotoUrls(newUrls);
+    } else {
+      // chưa chọn, kiểm tra số lượng
+      if (selectedPhotosIndexes.length < requiredCount) {
+        setSelectedPhotosIndexes([...selectedPhotosIndexes, imageIndex]);
+
+        const newUrls = [...photoUrls];
+        const emptyPos = newUrls.findIndex(u => u === "");
+        if (emptyPos !== -1) newUrls[emptyPos] = image;
+        setPhotoUrls(newUrls);
+      }
+    }
   };
 
   return (
     <div className="container">
-      {/* Page Header */}
       <CandidHeading text="SELECT YOUR PICTURES" />
-      {/* Page Content */}
       <div className="page-content">
-        {/* This is the Collage/Polaroid */}
-        <CandidPolaroid photoUrls={photoUrls} componentRef={componentRef} />
-        {/* 8 Pictures Grid + Button */}
+        <LayoutRenderer layoutType={layoutType} photos={photoUrls} componentRef={componentRef} />
         <div className="selection-container">
-          {[0, 4].map((row) => (
-            <div className="selection-row">
-              {photos
-                .slice(0 + row, 4 + row)
-                .map((photo: any, index: number) => (
-                  <button
-                    key={photo}
-                    className="image-button"
-                    onClick={() => {
-                      handlePictureChange(photo, index + row);
-                    }}
-                  >
-                    {photo ? (
-                      <img
-                        key={photo}
-                        className={`candid-image
-                          ${
-                            selectedPhotosIndexes.includes(index + row)
-                              ? "highlight-image"
-                              : ""
-                          }`}
-                        src={photo}
-                        alt="Candid Image"
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </button>
-                ))}
-            </div>
-          ))}
-          {/* Print Button */}
-          <div className="selection-row print-btn-placement">
-            <a href={url} download={`captured-image${numberOfCopies}.jpg`}>
-              <CircularBtn
-                onClick={() => {
-                  printClick();
-                }}
-                buttonText="PRINT YOUR PICTURE "
-                iconUrl="/assets/images/png/printer_icon.png"
-              />
-            </a>
+          <div className="selection-row">
+            {photos.map((photo: string, index: number) => (
+              <button
+                key={photo}
+                className="image-button"
+                onClick={() => handlePictureToggle(photo, index)}
+              >
+                <img
+                  className={`candid-image ${selectedPhotosIndexes.includes(index) ? "highlight-image" : ""}`}
+                  src={photo}
+                  alt="Candid Image"
+                />
+              </button>
+            ))}
+          </div>
+          <div className="selection-row edit-btn-placement">
+            <CircularBtn
+              onClick={editClick}
+              buttonText="EDIT YOUR PICTURE"
+              iconUrl="/assets/images/png/edit_icon.png"
+            />
           </div>
         </div>
       </div>

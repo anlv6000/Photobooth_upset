@@ -1,27 +1,32 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
-interface CandidContextType {
-  numberOfCopies: number;
-  setNumberOfCopies: (copies: number) => void;
-}
+const CandidContext = createContext<any>(null);
 
-const CandidContext = createContext<CandidContextType | any>(undefined);
-
-export const useCandidContext = () => {
-  const context = useContext(CandidContext);
-  if (!context) {
-    throw new Error('useCandidContext must be used within a CandidProvider');
-  }
-  return context;
-};
-
-export const CandidProvider: React.FC<any> = ({ children }) => {
+export const CandidProvider = ({ children }: { children: React.ReactNode }) => {
   const [numberOfCopies, setNumberOfCopies] = useState<number>(1);
+  const [layoutType, setLayoutType] = useState<string>("1");
+  const [orientation, setOrientation] = useState<string>("portrait");
+  const [theme, setTheme] = useState<string>("default");
+  const [editorSettings, setEditorSettings] = useState<any>({});
 
-  const value: CandidContextType = {
-    numberOfCopies,
-    setNumberOfCopies,
-  };
-
-  return <CandidContext.Provider value={value}>{children}</CandidContext.Provider>;
+  return (
+    <CandidContext.Provider
+      value={{
+        numberOfCopies,
+        setNumberOfCopies,
+        layoutType,
+        setLayoutType,
+        orientation,
+        setOrientation,
+        theme,
+        setTheme,
+        editorSettings,
+        setEditorSettings,
+      }}
+    >
+      {children}
+    </CandidContext.Provider>
+  );
 };
+
+export const useCandidContext = () => useContext(CandidContext);
