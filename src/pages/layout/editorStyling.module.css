@@ -39,7 +39,7 @@
 }
 
 .previewArea {
-  width: 80%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,7 +47,6 @@
 
 .previewWrapper {
   position: relative;
-  background: #00000033;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -57,32 +56,33 @@
   height: 80%;
 }
 
-.preview-2plus1 {
-  width: 60%;
-  height: 80%;
+.preview-2strip {
+  width: 26%;
+  height: auto;
 }
 
 .preview-3strip {
-  width: 25%;
-  height: 90%;
+  width: 23%;
+  height: auto;
 }
 
 .preview-4strip {
   width: 20%;
-  height: 90%;
+  height: auto;
 }
 
-.preview-4square {
-  width: 60%;
-  height: 80%;
+.preview-6square {
+  width: 50%;
+  height: auto;
 }
 
 .previewImage {
   width: 100%;
-  border-radius: 10px;
-  height: auto;
+  height: 100%;
+  object-fit: cover; 
   display: block;
 }
+
 
 .printBtnPlacement {
   display: flex;
@@ -96,4 +96,24 @@
   padding: 10px;
   border-radius: 8px;
   color: white;
+}
+
+.back-btn-small {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  z-index: 100;
+}
+
+.back-btn-small:hover {
+  background: rgba(255,255,255,0.14);
+  color: #fff;
 }

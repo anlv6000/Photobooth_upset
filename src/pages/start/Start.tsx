@@ -13,7 +13,7 @@ const Start = () => {
       }}
     >
       <div className="frame">
-        <p className="frame__tagline">Project by <span className="colored__tagline">Codeyssey</span></p>
+        <p className="frame__tagline">Project by <span className="colored__tagline">xxQiellixx</span></p>
       </div>
       <SlideShow></SlideShow>
     </div>

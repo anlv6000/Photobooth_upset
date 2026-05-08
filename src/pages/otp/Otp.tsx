@@ -37,7 +37,7 @@ const Otp = () => {
       } else if(otp_val !== '9999')
         setError('Oops, the OTP you entered is wrong')
       else
-        navigate("/copies");
+        navigate("/shoot-mode");
     }
     else {
       if (otp_val.length === 4){

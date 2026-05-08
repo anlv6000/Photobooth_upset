@@ -46,7 +46,8 @@
     "productName": "PhotoBooth",
     "files": [
       "build/**/*",
-      "electron-main.js"
+      "electron-main.js",
+      "src/preload.js"
     ],
     "directories": {
       "buildResources": "assets"

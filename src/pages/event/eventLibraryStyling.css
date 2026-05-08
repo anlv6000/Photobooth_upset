@@ -1,0 +1,115 @@
+.event-library-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: radial-gradient(circle at top, #10050f 0%, #040305 100%);
+  color: #fff;
+}
+
+.event-library-card {
+  width: min(1100px, 100%);
+  padding: 32px;
+  border-radius: 28px;
+  background: rgba(18, 12, 25, 0.9);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+}
+
+.event-library-header {
+  max-width: 780px;
+  margin-bottom: 24px;
+}
+
+.event-library-header h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 2.4vw, 2.8rem);
+  letter-spacing: 0.2em;
+}
+
+.event-library-header p {
+  margin: 0;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.preset-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.preset-preview {
+  min-height: 220px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.preset-header,
+.preset-footer {
+  width: 100%;
+  display: block;
+}
+
+.preset-footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.preset-meta {
+  padding: 18px 16px 10px;
+}
+
+.preset-meta h2 {
+  margin: 0 0 6px;
+  font-size: 1.08rem;
+}
+
+.preset-meta p {
+  margin: 0;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.92rem;
+}
+
+.preset-btn {
+  width: calc(100% - 32px);
+  margin: 14px 16px 18px;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #ff7979 0%, #ffcd58 100%);
+  color: #130214;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.preset-btn:hover {
+  transform: translateY(-1px);
+}
+
+.library-action-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.create-new-btn {
+  border: none;
+  border-radius: 18px;
+  padding: 16px 22px;
+  background: linear-gradient(135deg, #5b8cff 0%, #7affd0 100%);
+  color: #030f22;
+  font-weight: 800;
+  cursor: pointer;
+}

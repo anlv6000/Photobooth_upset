@@ -17,8 +17,13 @@ const CopiesSelection = () => {
     navigate("/layout");
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="container evenly-spaced-col">
+      <button type="button" className="back-btn-small" onClick={handleBack} title="Quay lại">← Quay lại</button>
       <CandidHeading text="CANDID PHOTOBOOTH" />
       <div className="copies-row">
         {[...Array(4)].map((_, index) => (

@@ -36,21 +36,24 @@ const Editor = () => {
 
   const saveAndDownload = async () => {
     if (componentRef.current) {
-      const canvas = await html2canvas(componentRef.current);
-      const image = canvas.toDataURL("image/jpeg");
+      const canvas = await html2canvas(componentRef.current, {
+        backgroundColor: null,
+        useCORS: true,
+        scale: 3 // nhân pixel để đạt chuẩn in
+      });
+      const image = canvas.toDataURL("image/png"); // PNG giữ chi tiết tốt hơn JPEG
       setEditorSettings({ overlays, finalImage: image });
 
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = "edited-image.jpg";
-      link.click();
-
-      navigate("/wait-screen");
+      // Thay vì download, truyền ảnh vào WaitPrompt để lưu vào library
+      navigate("/wait-screen", { state: { finalImage: image } });
     }
   };
 
+  const handleBack = () => { navigate(-1); };
+
   return (
     <div className={styles.container}>
+      <button type="button" className="back-btn-small" onClick={handleBack} title="Quay lại">← Quay lại</button>
       <CandidHeading text="TUỲ CHỈNH ẢNH" />
 
       <div className={styles.mainContent}>
@@ -162,16 +165,16 @@ const Editor = () => {
           </div>
         </div>
         {/* Nút Print/Lưu */}
-      <div className={styles.printBtnPlacement}>
-        <CircularBtn
-          onClick={saveAndDownload}
-          buttonText="SAVE & PRINT"
-          iconUrl="/assets/images/png/printer_icon.png"
-        />
-      </div>
+        <div className={styles.printBtnPlacement}>
+          <CircularBtn
+            onClick={saveAndDownload}
+            buttonText="SAVE & PRINT"
+            iconUrl="/assets/images/png/printer_icon.png"
+          />
+        </div>
       </div>
 
-      
+
     </div>
   );
 };

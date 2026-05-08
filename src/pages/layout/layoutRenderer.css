@@ -1,141 +1,361 @@
 /* Polaroid khung chung */
 .polaroid {
-  width: 100%;   /* cố định khung, không tràn màn hình */
-  height: 90%;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
-  background: black;
-  border: 5px solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-/* Polaroid chung */
-.polaroid {
-  margin: 0 auto;
-  background: black;
-  border: 5px solid black;
+  background: transparent;
+  border: none;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Polaroid 1 ảnh */
-.polaroid-1 {
-  width: 100%; 
-  height: 100%;
+/* Ẩn chữ */
+.polaroid-text {
+  display: none;
 }
 
-/* Polaroid 2+1 */
-.polaroid-2plus1 {
+/* Layout containers */
+.polaroid-1,
+.polaroid-2strip,
+.polaroid-3strip,
+.polaroid-4strip,
+.polaroid-6square {
   width: 100%;
   height: 100%;
+  padding : 0;
 }
 
-/* Polaroid 3 strip */
-.polaroid-3strip {
-  width: 100%; 
-  height: 100%;
-}
-
-/* Polaroid 4 strip */
-.polaroid-4strip {
-  width: 100%; 
-  height: 100%;
-}
-
-/* Polaroid 4 square */
-.polaroid-4square {
-  width: 100%; 
-  height: 100%;
-}
-
-/* Layout 1 ảnh */
-.layout-1 img {
+/* Frame chung */
+.frame-top,
+.frame-bottom {
   width: 100%;
-  height: 260px;   /* cao hơn để ảnh rõ */
   object-fit: cover;
+  pointer-events: none;
+  margin: 0;
 }
 
-/* Layout 2+1 */
-.layout-2plus1 .top-row {
-  display: flex;
-  gap: 10px;        /* thêm khoảng cách */
-}
-.layout-2plus1 .bottom-row {
-  margin-top: 13px;
-}
-.layout-2plus1 img {
+.frame-overlay-full {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 120px;
+  height: 100%;
   object-fit: cover;
-}
-
-/* Layout 3 strip */
-.layout-3strip {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.layout-3strip img {
-  width: 100%;
-  height: 90px;    /* dài hơn để ảnh rõ */
-  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  z-index: 10;
 }
 
 /* Layout 4 strip */
-.layout-4strip {
+.layout-4strip-container {
+  position: relative;
+  width: 170px;
+  height: 600px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  box-sizing: border-box;
 }
-.layout-4strip img {
-  width: 100%;
-  height: 80px;    /* dài hơn một chút */
+
+.layout-4strip-top {
+  width: 170px;
+  height: 10px;   /* header */
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-4strip-bottom {
+  width: 170px;
+  height: 90px;   /* footer */
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-4strip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-4strip .photo-slot {
+  width: 170px;
+  height: 125px;  /* (600 - 10 - 90) / 4 = 125 */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.layout-4strip .photo-img {
+  width: 170px;
+  height: 125px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-4strip .frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 170px;
+  height: 125px; /* overlay mỗi slot */
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+
+/* Layout 6square (3 ảnh mỗi bên) */
+.layout-6square-container {
+  position: relative;
+  width: 360px;   /* 2 cột, mỗi cột 180px */
+  height: 540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.layout-6square-top {
+  width: 360px;
+  height: 10px;   /* header */
+  display: block;
   object-fit: cover;
 }
 
-/* Layout 4 square */
-.layout-4square {
+.layout-6square-bottom {
+  width: 360px;
+  height: 160px;   /* footer */
+  display: block;
+  object-fit: cover;
+}
+
+.layout-6square {
+  flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr); /* 2 cột */
+  grid-template-rows: repeat(3, 1fr);    /* 3 hàng */
 }
 
-.layout-4square img:nth-child(1) {
-  transform: translateY(-5px); /* ảnh 1 hơi lên */
+.layout-6square .photo-slot {
+  width: 180px;
+  height: 133px;  /* (500 - 10 - 90) / 3 ≈ 133 */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.layout-4square img:nth-child(2) {
-  transform: translateY(5px);  /* ảnh 2 hơi xuống */
-}
-
-.layout-4square img:nth-child(3) {
-  transform: translateY(-5px);  /* ảnh 3 hơi xuống */
-}
-
-.layout-4square img:nth-child(4) {
-  transform: translateY(5px); /* ảnh 4 hơi lên */
-}
-
-.layout-4square img {
-  width: 100%;
-  height: 120px;
+.layout-6square .photo-img {
+  width: 180px;
+  height: 133px;
+  display: block;
   object-fit: cover;
+  object-position: center;
 }
 
-/* Frame overlay */
+.layout-6square .frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 133px;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+
+
+
+
+
+/* Layout 2strip */
+.layout-2strip-container {
+  position: relative;
+  width: 250px;
+  height: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.layout-2strip-top {
+  width: 250px;
+  height: 15px;   /* header */
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-2strip-bottom {
+  width: 250px;
+  height: 120px;   /* footer */
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-2strip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-2strip .photo-slot {
+  width: 250px;
+  height: 200px;  /* (500 - 10 - 90) / 2 = 200 */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.layout-2strip .photo-img {
+  width: 250px;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-2strip .frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 200px; /* overlay mỗi slot */
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+  
+
+
+/* Layout 3 strip */
+.layout-3strip-container {
+  position: relative;
+  width: 180px;
+  height: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.layout-3strip-top {
+  width: 180px;
+  height: 10px;   /* chiều cao header */
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-3strip-bottom {
+  width: 180px;
+  height: 90px;   /* chiều cao footer */
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-3strip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-3strip .photo-slot {
+  width: 180px;
+  height: 140px;  /* (490 - 10 - 50) / 3 */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.layout-3strip .photo-img {
+  width: 180px;
+  height: 140px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-3strip .frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 140px;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+
+
+/* Layout 1 */
+.layout-1-container {
+  position: relative;
+  width: 400px;   /* khớp với khung máy ảnh */
+  height: 530px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.layout-1-top {
+  height: 50px;   /* chiều cao header riêng cho layout 1 */
+  width: 400px;
+  display: block; /* loại bỏ khoảng trắng inline */
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-1-bottom {
+  height: 180px;  /* chiều cao footer riêng cho layout 1 */
+  width: 400px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.layout-1 {
+  flex: 1;
+  position: relative;
+  width: 400px;
+  height: 300px;  /* phần giữa còn lại sau header/footer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.layout-1 .photo-img {
+  width: 400px;
+  height: 300px;
+  display: block; /* loại bỏ khoảng trắng inline */
+  object-fit: cover;
+  object-position: center;
+}
+
 .frame-overlay {
   position: absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
+  top: 0; left: 0;
+  width: 400px; height: 300px;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
 }
-.polaroid-text {
-  color: white;
-  font-family: 'Michroma', sans-serif;
-  font-size: 10px;
-  text-align: center;
-}
-

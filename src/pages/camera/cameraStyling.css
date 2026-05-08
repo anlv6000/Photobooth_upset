@@ -1,26 +1,137 @@
+
 .camera-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* để có sidebar bên cạnh */
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
 }
 
+.camera-header {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.back-btn-camera {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.back-btn-camera:hover {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+}
+
+.camera-mode-selector {
+  display: flex;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+.mode-btn {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.18s ease;
+}
+
+.mode-btn.active {
+  border-color: #5b8cff;
+  background: rgba(91, 140, 255, 0.3);
+  color: #7affd0;
+  font-weight: 600;
+}
+
+.mode-btn:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.camera-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar-preview {
+  width: 600px;
+  margin-left: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cột */
+  gap: 10px;
+}
+
+.preview-item img {
+  width: 100%;
+  border: 2px solid #ccc;
+}
+
+.preview-item button {
+  margin-top: 5px;
+  background: #df3a40;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
 .camera-screen {
-  width: 100%;        /* chiếm toàn bộ chiều ngang */
-  max-width: 1280px;  /* giới hạn tối đa */
-  height: auto;       /* tự co theo tỷ lệ */
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 4 / 3;   /* giữ đúng tỉ lệ khung */
   background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .camera {
   width: 100%;
-  height: auto;
-  border-radius: 10px;
+  height: 100%;
+  object-fit: cover; /* ảnh fill toàn bộ khung */
+  border-radius: 0;  /* bỏ bo góc nếu không cần */
 }.camera-btn-placement {
   margin-top: -7%;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.undo-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  background: rgba(255, 100, 100, 0.8);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.undo-btn:hover {
+  background: rgba(255, 100, 100, 1);
+  transform: scale(1.05);
 }
 
 .countdown-text {
